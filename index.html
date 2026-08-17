@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipo DevMasters</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color:white;
+            min-height:100vh;
+        }
+
+        header{
+            text-align:center;
+            padding:60px 20px;
+        }
+
+        header h1{
+            font-size:3rem;
+            color:#38bdf8;
+            margin-bottom:15px;
+        }
+
+        header p{
+            max-width:800px;
+            margin:auto;
+            line-height:1.6;
+            color:#cbd5e1;
+        }
+
+        .contenedor{
+            max-width:1000px;
+            margin:auto;
+            padding:20px;
+        }
+
+        .descripcion{
+            text-align:center;
+            margin-bottom:50px;
+        }
+
+        .descripcion h2{
+            color:#38bdf8;
+            margin-bottom:15px;
+        }
+
+        .carrusel-section{
+            text-align:center;
+        }
+
+        .carrusel-section h2{
+            margin-bottom:30px;
+            color:#38bdf8;
+        }
+
+        .carrusel{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:20px;
+        }
+
+        .flecha{
+            width:55px;
+            height:55px;
+            border:none;
+            border-radius:50%;
+            background:#38bdf8;
+            color:white;
+            font-size:24px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .flecha:hover{
+            background:#0ea5e9;
+            transform:scale(1.1);
+        }
+
+        .card{
+            width:500px;
+            background:#334155;
+            border-radius:20px;
+            padding:30px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.3);
+            transition:0.3s;
+        }
+
+        .card h3{
+            color:#38bdf8;
+            margin-bottom:15px;
+        }
+
+        .card p{
+            line-height:1.6;
+            margin-bottom:15px;
+        }
+
+        .card ul{
+            text-align:left;
+            margin-left:20px;
+            line-height:1.8;
+        }
+
+        .indicador{
+            margin-top:20px;
+            color:#94a3b8;
+        }
+
+        footer{
+            text-align:center;
+            margin-top:50px;
+            padding:20px;
+            background:#0f172a;
+            color:#94a3b8;
+        }
+
+        @media(max-width:700px){
+
+            .carrusel{
+                flex-direction:column;
+            }
+
+            .card{
+                width:90%;
+            }
+
+            header h1{
+                font-size:2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>DevMasters</h1>
+    <p>
+        Somos un equipo de desarrollo de software enfocado en la creación
+        de aplicaciones web modernas, eficientes y fáciles de desplegar
+        mediante tecnologías como HTML, CSS, JavaScript y Docker.
+    </p>
+</header>
+
+<div class="contenedor">
+
+    <section class="descripcion">
+        <h2>¿Quiénes Somos?</h2>
+        <p>
+            Nuestro objetivo es desarrollar soluciones web profesionales,
+            aplicando buenas prácticas de programación, trabajo colaborativo
+            y tecnologías emergentes para construir aplicaciones modernas.
+        </p>
+    </section>
+
+    <section class="carrusel-section">
+
+        <h2>Integrantes del Equipo</h2>
+
+        <div class="carrusel">
+
+            <button class="flecha" id="prev">
+                &#10094;
+            </button>
+
+            <div class="card">
+                <h3 id="nombre"></h3>
+
+                <p id="descripcionIntegrante"></p>
+
+                <h4>Habilidades:</h4>
+
+                <ul id="habilidades"></ul>
+            </div>
+
+            <button class="flecha" id="next">
+                &#10095;
+            </button>
+
+        </div>
+
+        <div class="indicador">
+            <span id="indice"></span>
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>Tecnologías Emergentes I | Contenedores con Docker</p>
+</footer>
+
+<script>
+
+const integrantes = [
+{
+    nombre: "Renan Nicolas Ballon Plaza",
+    descripcion: "Desarrollador Frontend especializado en diseño de interfaces y experiencia de usuario.",
+    habilidades: [
+        "HTML5",
+        "C#",
+        "Unity 6.5",
+        "Full Stack"
+    ]
+},
+{
+    nombre: "Rodrigo Gabriel Vera Espejo",
+    descripcion: "Desarrollador Backend enfocado en lógica de negocio y gestión de bases de datos.",
+    habilidades: [
+        "Python",
+        "Redes y comunicacion",
+        "Git y GitHub",
+        "C#"
+    ]
+},
+
+];
+
+let posicion = 0;
+
+function mostrarIntegrante(){
+
+    document.getElementById("nombre").textContent =
+        integrantes[posicion].nombre;
+
+    document.getElementById("descripcionIntegrante").textContent =
+        integrantes[posicion].descripcion;
+
+    const lista =
+        document.getElementById("habilidades");
+
+    lista.innerHTML = "";
+
+    integrantes[posicion].habilidades.forEach(habilidad => {
+
+        const li = document.createElement("li");
+
+        li.textContent = habilidad;
+
+        lista.appendChild(li);
+    });
+
+    document.getElementById("indice").textContent =
+        `Integrante ${posicion + 1} de ${integrantes.length}`;
+}
+
+document.getElementById("next")
+.addEventListener("click", () => {
+
+    posicion++;
+
+    if(posicion >= integrantes.length){
+        posicion = 0;
+    }
+
+    mostrarIntegrante();
+});
+
+document.getElementById("prev")
+.addEventListener("click", () => {
+
+    posicion--;
+
+    if(posicion < 0){
+        posicion = integrantes.length - 1;
+    }
+
+    mostrarIntegrante();
+});
+
+/* Cambio automático cada 5 segundos */
+
+setInterval(() => {
+
+    posicion++;
+
+    if(posicion >= integrantes.length){
+        posicion = 0;
+    }
+
+    mostrarIntegrante();
+
+}, 5000);
+
+mostrarIntegrante();
+
+</script>
+
+</body>
+</html>
