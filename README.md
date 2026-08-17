@@ -21,4 +21,3 @@ DevMasters es una aplicación web desarrollada para la materia Tecnologías Emer
 - Docker
 - Nginx
 
-## Estructura del Proyecto
